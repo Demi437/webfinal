@@ -3535,7 +3535,13 @@
                          '地址:'+address
             });*/
 
-    
+    	var infowindow = new google.maps.InfoWindow;
+  			infowindow.setContent('<b>'+dataTitle+'</b>');
+
+  		var marker = new google.maps.Marker({map: map, position: dataLocation});
+  			marker.addListener('click', function() {
+    		infowindow.open(map, marker);
+  		});
 
 
     </script>
