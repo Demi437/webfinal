@@ -10,6 +10,22 @@
 	<div>1234</div>	
 	<div id='map' style="width:950px; height:500px"></div>
 	<script type="text/javascript">
+	function initialize() {
+        
+        //繪製地圖        
+        var map=drawmap();
+
+
+        //初始化地圖時的定位經緯度設定
+        var latlng = new google.maps.LatLng(22.6492006053,120.291924331); //台灣緯度Latitude、經度Longitude：22.6492006053,120.291924331
+        //初始化地圖options設定
+        var mapOptions = {
+          zoom: 10,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        //初始化地圖
+        map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
         var map;
 
             //directionsDisplay = new google.maps.DirectionsRenderer();
