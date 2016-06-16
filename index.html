@@ -1,40 +1,21 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map_canvas { height: 100% }
-    </style>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&ja"></script>
-    <script  type="text/javascript" src="js/markerclusterer.js"></script> 
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-
-      function initialize() {
-        
-        //繪製地圖        
-        var map=drawmap();
-
-
-        //初始化地圖時的定位經緯度設定
-        var latlng = new google.maps.LatLng(22.6492006053,120.291924331); //台灣緯度Latitude、經度Longitude：22.6492006053,120.291924331
-        //初始化地圖options設定
-        var mapOptions = {
-          zoom: 10,
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        //初始化地圖
-        map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
-         
-
-
-
-        // 繪製marker
-        var locations = [
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Map</title>
+	<script  async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&callback=initMap"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+	<div id="map"></div>
+	<script type="text/javascript">
+	function initMap() {
+		  var map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 12,
+		    center: {lat: -28.643387, lng: 153.612224},
+		    mapTypeId: google.maps.MapTypeId.SATELLITE
+		  });
+		  var locations=[
   {
     "行政區": "三民區",
     "測  照  地  點": "中華二路、同盟二路口",
@@ -3518,62 +3499,46 @@
     "緯度Lat": "22.887611803",
     "資料序號Seq": 387
   },
-  
+  {
+    "行政區": "",
+    "測  照  地  點": "",
+    "測照方向": "",
+    "功能": "",
+    "經度Lng": null,
+    "緯度Lat": null,
+    "資料序號Seq": 388
+  },
+  {
+    "行政區": "",
+    "測  照  地  點": "",
+    "測照方向": "",
+    "功能": "",
+    "經度Lng": null,
+    "緯度Lat": null,
+    "資料序號Seq": 389
+  }
 ];
+		  var markers = [];
+          var marker, i;
+	        for (i = 0; i < locations.length; i++) {  
+	          marker = new google.maps.Marker({
+	            position: new google.maps.LatLng(locations[i].經度Lng, locations[i].緯度Lat),
+	            title: locations[i].測照地點,
+	            //zIndex: locations[i][3],
+	            map: map
+	          });
+	          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	            return function() {
+	              infowindow.setContent(locations[i].測照地點);
+	              infowindow.open(map, marker);
+	            }
+	          })(marker, i));
+	          markers.push(marker);
+	        }
+	      }
 
-
-
-        var infowindow = new google.maps.InfoWindow();
-
-        var mcOptions = {gridSize: 50, maxZoom: 15};
-        var markers = [];
-
-        var marker, i;
-        for (i = 0; i < locations.length; i++) {  
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i].經度Lng, locations[i].緯度Lat),
-            title: locations[i].測照地點,
-            //zIndex: locations[i][3],
-            map: map
-          });
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              infowindow.setContent(locations[i].測照地點);
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
-          markers.push(marker);
-        }
-
-        var markerCluster = new MarkerClusterer(map, markers, mcOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-      function drawmap(){
-        //地圖參數選項
-        var mapOptions = {
-          center: new google.maps.LatLng(18, 18),
-          mapTypeId: google.maps.MapTypeId.TERRAIN,
-          zoom:2,
-          minZoom: 2,
-          maxZoom: 100,   //地圖大小
-          zoomControl: true,
-          panControl: true,
-          mapTypeControl: false,    //地形圖&衛星圖切換
-          streetViewControl: false, //街景
-          disableDoubleClickZoom: true, //true禁用雙擊縮放地圖
-          keyboardShortcuts: true,  //用鍵盤控制地圖
-          scrollwheel: true //滑鼠滾輪拉近拉遠          
-        };
-        //繪製地圖
-        var map = new google.maps.Map(document.getElementById("map_canvas
-          "),
-            mapOptions);
-        return map;
-      }
-    </script>
-  </head>
-  <body onload="initialize()">
-    <div id="map_canvas" style="width:950px; height:500px"></div>
-  </body>
+	 google.maps.event.addDomListener(window, 'load', initMap);
+	 marker.setMap(map);
+	</script>
+</body>
 </html>
