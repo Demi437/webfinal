@@ -13,7 +13,7 @@ $(document).ready(function(){
      type:'GET', 
  url:'http://data.kaohsiung.gov.tw/Opendata/DownLoad.aspx?Type=2&CaseNo1=AF&CaseNo2=1&FileType=2&Lang=C&FolderType=O', 
     success:function (data){    
-      for (i=0;10>i;i++) {
+      for (i=0;data.length>i;i++) {
         var thisData = JSON.parse(data);
         var str;   
         var point = new google.maps.LatLng(thisData[i].緯度Lat, thisData[i].經度Lng);
@@ -36,6 +36,7 @@ $(document).ready(function(){
      position:point,
      icon: image
   });
+     marker.setMap(map);
 }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&callback=initMap" async defer>
