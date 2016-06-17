@@ -3,45 +3,14 @@
   <head>
   <meta charset="UTF-8">
     <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
+
     </style>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
-	/*$(document).ready(function(){
-	  $.ajax({ 
-	     type:'GET', 
-	 url:'http://data.kaohsiung.gov.tw/Opendata/DownLoad.aspx?Type=2&CaseNo1=AF&CaseNo2=1&FileType=2&Lang=C&FolderType=O', 
-	    success:function (data){    
-	      for (i=0;data.length>i;i++) {
-	        var thisData = JSON.parse(data);   
-	        var point = new google.maps.LatLng(thisData[i].緯度Lat, thisData[i].經度Lng);
-	        
-	    	}
-	    }
-	  });  
-	});
-			
-			
-		    function initMap() {
-		    var location={lat: 22.734177, lng: 120.284121};
-		    var map = new google.maps.Map(document.getElementById('map'), {
-		    zoom: 7,
-		    center: location
-		    });
-		                
-		     var image = 'camera.png';
-		     var markers = new google.maps.Marker({
-		     map: map,
-		     position:location,
-		     icon: image
-		  });
-		     markers.setMap(map);
-		}*/
-		$(document).ready(initMap);
+	      $(document).ready(init);
 
         //網頁上所有的DOM都載入後
-        function initMap() {
+        function init() {
             addMarker();
         }
         //加入標記點
@@ -69,7 +38,7 @@
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             };
                             /*產生地圖*/
-                            map = new google.maps.Map($("#div_showMap")[0], myOptions);
+                            map = new google.maps.Map($("#map")[0], myOptions);
 
                             first = false;
                         } //End if (first == true) 
@@ -88,8 +57,7 @@
                     } //End for (var index in data) 
                 }     //End success: function (data) 
             });       //End jQuery Ajax
-        }             //End function addMarker()
-    
+        }             
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&callback=initMap" async defer>
     </script>
