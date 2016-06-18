@@ -31,6 +31,8 @@
                         if (first == true) {//第一次執行迴圈
                             /*以哪個緯經度中心來產生地圖*/
                             var latlng = new google.maps.LatLng(data[index].緯度Lat, data[index].經度Lng);
+                            var location = data[index].測照地點;
+                            var title = data[index].功能;
                             var myOptions = {
                                 zoom: 14,
                                 center: latlng,
@@ -51,8 +53,11 @@
                             position: myLatlng,
                             map: map,
                             icon: image,
-                            title: data[index].行政區
+                            title: data[index].名稱
                         });
+                          var infoWindow = new google.maps.InfoWindow({
+        					content: '功能:' + title + '<br>' + '測照地點:' + location
+    });
                     } //End for (var index in data) 
                 }     //End success: function (data) 
             });       //End jQuery Ajax
