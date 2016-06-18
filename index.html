@@ -7,7 +7,6 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&callback=initMap"></script>
     <script type="text/javascript">
         $(document).ready(init);
-
         //網頁上所有的DOM都載入後
         function init() {
             addMarker();
@@ -22,17 +21,12 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-
-
                     var first = true;
                     var map;
                     for (var index in data) {
-
                         if (first == true) {//第一次執行迴圈
                             /*以哪個緯經度中心來產生地圖*/
                             var latlng = new google.maps.LatLng(data[index].緯度Lat, data[index].經度Lng);
-                            //var location = data[index].測 照 地 點;
-                            var title = data[index].功能;
                             var myOptions = {
                                 zoom: 14,
                                 center: latlng,
@@ -40,29 +34,61 @@
                             };
                             /*產生地圖*/
                             map = new google.maps.Map($("#div_showMap")[0], myOptions);
-
                             first = false;
                         } //End if (first == true) 
-
-
                         //建立緯經度座標
                         var myLatlng = new google.maps.LatLng(data[index].緯度Lat, data[index].經度Lng);
                         //加一個Marker到map中
                         var image = 'camera.png';
+                        var geocoder = new google.maps.Geocoder();
+                        var coord = new google.maps.LatLng(myLatlng);
+
+                        geocoder.geocode({'myLatlng': coord }, function(results, status) {
+                              if (status === google.maps.GeocoderStatus.OK) {
+                                // 如果有資料就會回傳
+
+                                if (results) { 
+                                  console.log(results[0]); 
+                                }
+                              }
+                              // 經緯度資訊錯誤
+
+                              else {
+                                alert("Reverse Geocoding failed because: " + status);
+                              }
+                            });
+                        var geocoder = new google.maps.Geocoder();
+                        var popup = new google.maps.InfoWindow();
+                        var markerPosition = marker.getPosition();
+                        geocoder.geocode({
+                          'myLatlng': markerPosition
+                        }, function(results, status) {
+                            if (status === google.maps.GeocoderStatus.OK) {
+                                if (results) {
+                                    // 將取得的資訊傳入 marker 訊息泡泡
+
+                                    showAddress(results[0], marker);
+                                }
+                            } else {
+                                alert("Reverse Geocoding failed because: " + status);
+                            }
+                        });
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
-                            icon: image,
-                            title: data[index].名稱
+                            icon: image
                         });
-                          var infoWindow = new google.maps.InfoWindow({
-        					content: '功能:' + title + '<br>' /*+ '測 照 地 點:' + location*/
-    });
+                        function showAddress(result, marker) {
+                            map.setCenter(marker.getPosition());
+                            // 顯示傳入的地址資訊
+                        var popupContent = '<b>地址: </b> ' + result.formatted_address;
+                        popup.setContent(popupContent);
+                        popup.open(map, marker);
+                        }
                     } //End for (var index in data) 
                 }     //End success: function (data) 
             });       //End jQuery Ajax
         }             //End function addMarker() 
-
     </script>
 </head>
 <body>
