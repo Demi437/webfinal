@@ -42,49 +42,11 @@
                         var image = 'camera.png';
                         var geocoder = new google.maps.Geocoder();
                         var coord = new google.maps.LatLng(myLatlng);
-
-                        geocoder.geocode({'myLatlng': coord }, function(results, status) {
-                              if (status === google.maps.GeocoderStatus.OK) {
-                                // 如果有資料就會回傳
-
-                                if (results) { 
-                                  console.log(results[0]); 
-                                }
-                              }
-                              // 經緯度資訊錯誤
-
-                              else {
-                                alert("Reverse Geocoding failed because: " + status);
-                              }
-                            });
-                        var geocoder = new google.maps.Geocoder();
-                        var popup = new google.maps.InfoWindow();
-                        var markerPosition = marker.getPosition();
-                        geocoder.geocode({
-                          'myLatlng': markerPosition
-                        }, function(results, status) {
-                            if (status === google.maps.GeocoderStatus.OK) {
-                                if (results) {
-                                    // 將取得的資訊傳入 marker 訊息泡泡
-
-                                    showAddress(results[0], marker);
-                                }
-                            } else {
-                                alert("Reverse Geocoding failed because: " + status);
-                            }
-                        });
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
                             icon: image
                         });
-                        function showAddress(result, marker) {
-                            map.setCenter(marker.getPosition());
-                            // 顯示傳入的地址資訊
-                        var popupContent = '<b>地址: </b> ' + result.formatted_address;
-                        popup.setContent(popupContent);
-                        popup.open(map, marker);
-                        }
                     } //End for (var index in data) 
                 }     //End success: function (data) 
             });       //End jQuery Ajax
