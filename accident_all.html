@@ -21,7 +21,7 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                    console.log("Hello");
+                    
                     var first = true;
                     var map;
                     for (var index=0; index<data.length; index++) {
@@ -41,24 +41,38 @@
                         var myLatlng = new google.maps.LatLng(data[index].lat, data[index].lng);
                         
                         var info = data[index].發生路段;
-                        console.log(info);
+                        var year = data[index].排名;
                         
                         //加一個Marker到map中
 
-                        var image = 'death_102.png';
+                        var image;
+                        
                         var markers = [];
                         var infoWindows = [];
+                        createMarker(year);
+                        function createMarker(year){
+                            if(year == 102){
+                                image = 'death_102.png';
+                            }
+                            else if(year == 103){
+                                image = 'death_103.png';
+                            }
+                            else{
+                                image = 'death_104.png';
+                            }
+                        }
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
                             icon: image
                         });
                         var content = info;
-                        attach(marker,content)
+                        attach(marker,content);
+                        
 
                         function attach(marker,content){
                             var infowindow = new google.maps.InfoWindow({  
-                                             content: content
+                                    content: content
                                     });
                             google.maps.event.addListener(marker, 'click', function() {
                                     infowindow.open(marker.get('map'), marker);
