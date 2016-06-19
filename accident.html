@@ -53,17 +53,19 @@
                         });
                         var content = info;
                         attach(marker,content)
+
+                        function attach(marker,content){
+                            var infowindow = new google.maps.InfoWindow({  
+                                             content: info
+                                    });
+                            google.maps.event.addListener(marker, 'click', function() {
+                                    infowindow.open(marker.get('map'), marker);
+                                    });
+                            }
                         
                     } //End for (var index in data) 
                 }     //End success: function (data)
-                function attach(marker,content){
-                var infowindow = new google.maps.InfoWindow({  
-                                 content: info
-                        });
-                        marker.addListener('click', function() {
-                            infowindow.open(map, marker);
-                                });
-                        }
+                
                          
             });       //End jQuery Ajax
         }             //End function addMarker() 
