@@ -3,7 +3,7 @@
   <head>
     <title></title>
     <script type="text/javascript" src="jquery-2.2.3.min.js"></script>
-    <!--要玩Google Map 就一定要引用此js-->
+    
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDYRRc8L1lFywfqdEoRR7x2WstNGFyBg&callback=initMap"></script>
     <script type="text/javascript">
         $(document).ready(init);
@@ -21,7 +21,6 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                console.log("hello");
                     var first = true;
                     var map;
                     for (var index in data) {
@@ -42,12 +41,18 @@
                         
                         //加一個Marker到map中
                         var image = 'death.png';
+                          var infowindow = new google.maps.InfoWindow({
+                                 content: 死亡車禍
+                                });
                     
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
                             icon: image
                         });
+                          marker.addListener('click', function() {
+                                infowindow.open(map, marker);
+                                });
                         
                     } //End for (var index in data) 
                 }     //End success: function (data) 
