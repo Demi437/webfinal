@@ -57,8 +57,15 @@
                             title:info
                         });
                         marker.addListener('click', function() {
-                                infowindow.open(map, marker);
-                                });
+                                if (latlng) {  
+                                var myHtml = "事故地點: " + info ;
+                                map.openInfoWindow(latlng, myHtml); 
+                              } 
+                            }); 
+                            //加入事件當點及地圖時會回傳座標
+ 
+map.addControl(new GSmallMapControl()); 
+map.addControl(new GMapTypeControl());
                         
                     } //End for (var index in data) 
                 }     //End success: function (data) 
