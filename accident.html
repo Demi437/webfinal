@@ -51,18 +51,20 @@
                             map: map,
                             icon: image
                         });
-                        var infowindow = new google.maps.InfoWindow({  
+                        var content = info;
+                        attach(marker,content)
+                        
+                    } //End for (var index in data) 
+                }     //End success: function (data)
+                function attach(marker,content){
+                var infowindow = new google.maps.InfoWindow({  
                                  content: info
                         });
                         marker.addListener('click', function() {
                             infowindow.open(map, marker);
                                 });
-                        
-                        markers.push(marker);
-                        infoWindows.push(infowindow);
-                        
-                    } //End for (var index in data) 
-                }     //End success: function (data) 
+                        }
+                         
             });       //End jQuery Ajax
         }             //End function addMarker() 
     </script>
