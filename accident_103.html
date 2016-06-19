@@ -59,12 +59,13 @@
                                              content: content
                                     });
                             google.maps.event.addListener(marker, 'click', function() {
-                                if (focusInfoWindow != null) {
-                                    focusInfoWindow.close();
-                                }
-                                infowindow.open(map, marker);
-                                focusInfoWindow = infowindow;
-                                                    }
+                                    if (focusInfowindow != null) {
+                                        focusInfowindow.close();
+                                    }
+                                    infowindow.open(map, marker);
+                                    focusInfowindow = infowindow;
+                                    });
+                            }
                         
                     } //End for (var index in data) 
                 }     //End success: function (data)
