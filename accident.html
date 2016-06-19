@@ -45,7 +45,7 @@
 
                         //加一個Marker到map中
                         var image = 'death.png';
-                        for(i=0;i<info.length;i++){
+            
                         var infowindow = new google.maps.InfoWindow({  
                                  content: info
                                 });
@@ -55,10 +55,11 @@
                             map: map,
                             icon: image
                         });
-                          marker.addListener('click', function() {
+                        marker.addListener('click', function() {
                                 infowindow.open(map, marker);
                                 });
-                        }
+                        marker.openInfoWindowHtml(info);
+                        
                     } //End for (var index in data) 
                 }     //End success: function (data) 
             });       //End jQuery Ajax
