@@ -45,21 +45,22 @@
                         //加一個Marker到map中
 
                         var image = 'death.png';
-                        
+                        var markers = [];
+                        var infoWindows = [];
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
                             icon: image
                         });
-                        /*var infowindow = new google.maps.InfoWindow({  
+                        var infowindow = new google.maps.InfoWindow({  
                                  content: info
-                        });*/
+                        });
                         marker.addListener('click', function() {
                             infowindow.open(map, marker);
                                 });
-                        /*
+                        
                         marker.push(marker);
-                        infoWindows.push(infoWindow);*/
+                        infoWindows.push(infoWindow);
                         
                     } //End for (var index in data) 
                 }     //End success: function (data) 
