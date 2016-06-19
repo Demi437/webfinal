@@ -38,13 +38,16 @@
                         } //End if (first == true) 
                         //建立緯經度座標
                         var myLatlng = new google.maps.LatLng(data[index].lat, data[index].lng);
-                        var info = data[index].發生路段;
+                        var info = new Array();
+                        info = data[index].發生路段;
 
                         
                         //加一個Marker到map中
                         var image = 'death.png';
                         var infowindow = new google.maps.InfoWindow({
-                                 content: info
+                                for(i=0;i<=info.length;i++){
+                                 content: info[i]
+                                 }
                                 });
                     
                         var marker = new google.maps.Marker({
