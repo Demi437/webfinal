@@ -45,7 +45,7 @@
 
                         //加一個Marker到map中
                         var image = 'death.png';
-            
+                        
                         var infowindow = new google.maps.InfoWindow({  
                                  content: info
                                 });
@@ -53,19 +53,11 @@
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map,
-                            icon: image,
-                            title:info
+                            icon: image
                         });
-                        marker.addListener('click', function() {
-                                if (latlng) {  
-                                var myHtml = "事故地點: " + info ;
-                                map.openInfoWindow(latlng, myHtml); 
-                              } 
-                            }); 
-                            //加入事件當點及地圖時會回傳座標
- 
-map.addControl(new GSmallMapControl()); 
-map.addControl(new GMapTypeControl());
+                          marker.addListener('click', function() {
+                                infowindow.open(map, marker);
+                                });
                         
                     } //End for (var index in data) 
                 }     //End success: function (data) 
